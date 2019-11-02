@@ -10,8 +10,7 @@ class Form extends Component {
         super(props);
         this.state = {
             key: '',
-            rejected: false,
-            approved: false
+            rejected: false
         };
 
         this.clearKey = this.clearKey.bind(this);
@@ -23,8 +22,7 @@ class Form extends Component {
 
     clearKey() {
         this.setState({
-            rejected: false,
-            approved: false
+            rejected: false
         });
     }
 
@@ -40,7 +38,6 @@ class Form extends Component {
     approveKey() {
         this.setState({
             rejected: false,
-            approved: true,
             key: '',
         }, () => {
             setTimeout(this.clearKey, TIMEOUT);
@@ -76,7 +73,7 @@ class Form extends Component {
     render() {
         if (this.props.planet.isColonized) {
             return (
-                <div className='form'>
+                <div className='form form--colonized'>
                     <div className="form__title">
                         Launch panel
                     </div> 
@@ -87,8 +84,8 @@ class Form extends Component {
             )
         }
 
-        const { key, rejected, approved } = this.state;
-        const formClassNames = `form ${rejected ? 'form--rejected' : ''} ${approved ? 'form--approved' : ''}`;
+        const { key, rejected } = this.state;
+        const formClassNames = `form ${rejected ? 'form--rejected' : ''}`;
 
         return (
             <div className={formClassNames} >
