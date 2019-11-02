@@ -1,0 +1,17 @@
+.progress__caption {
+    color: #fff;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.progress__box {
+    border: 1px solid green;
+    padding: 4px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.progress__percent {
+    background: #03ce7b;
+    height: 20px;
+}

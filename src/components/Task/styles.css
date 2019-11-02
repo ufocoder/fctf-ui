@@ -1,0 +1,43 @@
+.task {
+    border: 1px solid #1c7b4f;
+    color: #00cf7b;
+    padding: 15px;
+    background: #050713;
+}
+
+.task__title {
+    font-size: 1.3em;
+}
+
+.task__description {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #d4d4d4;
+    min-height: 130px;
+}
+
+.subtasks {
+    margin: 10px 0;
+}
+
+.subtask {
+    display: inline-block;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #1c7b4f;
+}
+
+.subtask--completed {
+    position: relative;
+}
+
+.subtask--completed::before {
+    background: #1c7b4f;
+    content: ' ';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+}

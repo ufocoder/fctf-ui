@@ -1,0 +1,49 @@
+.form {
+    background: #050713;
+    border: 1px solid #1c7b4f;
+    color: #00cf7b;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.form__title {
+    font-size: 1.3em;
+}
+
+.form__description {
+    padding: 20px 0;
+    font-size: 0.9em;
+    color: #d4d4d4;
+}
+
+.form__input {
+    border: 1px solid #1c7b4f;
+    background: transparent;
+    color: #fff;
+    padding: 4px;
+    font-size: 1em;
+}
+
+.form__button {
+    border: 1px solid #1c7b4f;
+    background: #1c7b4f;
+    padding: 4px;
+    font-size: 1em;
+    color: #fff;
+}
+
+.form--rejected {
+    animation: wiggle 0.5s 2;
+}
+  
+.wiggle:hover {
+    animation: none;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   80% { transform: rotate(0deg); }
+   85% { transform: rotate(5deg); }
+   95% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}

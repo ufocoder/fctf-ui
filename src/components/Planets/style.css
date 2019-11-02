@@ -1,0 +1,45 @@
+.sun {
+    fill: yellow;
+    r: 30;
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+
+.planet:hover {
+    stroke-width: 2;
+    stroke: green;
+    stroke-dasharray: 5, 5;
+    stroke-linecap: round;
+}
+
+.planet__field {
+    fill: transparent;
+}
+
+.planet__field--observabled,
+.planet__field:hover {
+    fill: #fff;
+    opacity: 0.2;
+}
+
+.planet__field--colonized  {
+    stroke-width: 2;
+    stroke: green;
+    stroke-dasharray: 5, 5;
+    stroke-linecap: round;
+    fill: transparent;
+    opacity: 1;
+}
+
+.planet__field:hover {
+    stroke-width: 0;
+    opacity: 0.2;
+}
+
+.orbit {
+    fill: transparent;
+    stroke-width: 1;
+    stroke: #f0f0f0;
+    opacity: 0.3;
+    z-index: 0;
+}
