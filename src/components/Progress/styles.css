@@ -12,7 +12,15 @@
 }
 
 .progress__percent {
-    background: #03ce7b;
     height: 20px;
     transition: width 0.6s ease-in-out
+}
+
+.progress__percent--current {
+    background: #03ce7b;
+}
+
+.progress__percent--other {
+    opacity: 0.2;
+    background: #03ce7b;
 }
