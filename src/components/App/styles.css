@@ -20,11 +20,11 @@ code {
 }
 
 .layout__planets {
-  flex: 0 0 600px;
+  flex: 0 0 760px;
 }
 
 .layout__content {
-  flex: 0 0 300px;
+  flex: 0 0 290px;
 }
 
 .header {

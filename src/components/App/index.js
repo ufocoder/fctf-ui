@@ -39,8 +39,8 @@ const App = ({ accepted = [] }) => {
             <div className="layout__planets">
                 <Planets 
                     planets={planets}
-                    width={600}
-                    height={600}
+                    width={730}
+                    height={730}
                     currentPlanet={currentPlanet} 
                     onClickHandler={handlePlanetClick} />
             </div>

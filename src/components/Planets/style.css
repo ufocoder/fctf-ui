@@ -34,12 +34,13 @@
 .planet__field:hover {
     stroke-width: 0;
     opacity: 0.2;
+    cursor: pointer;
 }
 
 .orbit {
     fill: transparent;
     stroke-width: 1;
     stroke: #f0f0f0;
-    opacity: 0.3;
+    opacity: 0.2;
     z-index: 0;
 }

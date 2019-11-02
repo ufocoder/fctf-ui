@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.css'
 
-const sunRadius = 40;
+const sunRadius = 38;
 const Orbit = ({ cx, cy, orbit }) => (
     <circle className="orbit" r={orbit} cx={cx} cy={cy} />
 )

@@ -14,4 +14,5 @@
 .progress__percent {
     background: #03ce7b;
     height: 20px;
+    transition: width 0.6s ease-in-out
 }

@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
-import ApiService from '../../services/Api'
+import ApiService from '../../services/Api';
 
-import './styles.css'
+import './styles.css';
 
 class Form extends Component {
     constructor(props) {
-        super(props)  
+        super(props);
         this.state = {
             key: '',
-            rejected: false
-        }       
+            rejected: false,
+            approved: false
+        };
         
-        this.clearKey = this.clearKey.bind(this)
-        this.rejectKey = this.rejectKey.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.clearKey = this.clearKey.bind(this);
+        this.rejectKey = this.rejectKey.bind(this);
+        this.approveKey = this.approveKey.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     clearKey() {
         this.setState({
             rejected: false,
-        })
+            approved: false
+        });
     }
 
     rejectKey() {
@@ -29,26 +32,37 @@ class Form extends Component {
             key: '',
         }, () => {
             setTimeout(this.clearKey, 1000);
-        })
+        });
+    }
+
+    approveKey() {
+        this.setState({
+            rejected: false,
+            approved: true,
+            key: '',
+        }, () => {
+            setTimeout(this.clearKey, 1000);
+        });
     }
 
     handleSubmit (e) {
-        const { planet, onApproved } = this.props
-        const { key } = this.state
-
+        const { planet, onApproved } = this.props;
+        const { key } = this.state;
+        
         ApiService
-            .approveKey(planet, key)
-            .then(isApproved => {
-                if (isApproved) {
-                    if (onApproved) {
-                        onApproved(planet, key)
-                    }
-                } else {
-                    this.rejectKey()
+        .approveKey(planet, key)
+        .then(isApproved => {
+            if (isApproved) {
+                if (onApproved) {
+                    onApproved(planet, key);
+                    this.approveKey();
                 }
-            })
-
-        e.preventDefault()
+            } else {
+                this.rejectKey();
+            }
+        });
+        
+        e.preventDefault();
     }
 
     handleChange(e) {
@@ -58,8 +72,8 @@ class Form extends Component {
     }
 
     render() {
-        const { key, rejected } = this.state
-        const formClassNames = `form ${rejected ? 'form--rejected' : ''}`
+        const { key, rejected, approved } = this.state;
+        const formClassNames = `form ${rejected ? 'form--rejected' : ''} ${approved ? 'form--approved' : ''}`;
 
         return (
             <div className={formClassNames} >
@@ -75,6 +89,7 @@ class Form extends Component {
                         className="form__input" 
                         type="text" 
                         value={key} 
+                        autoFocus={true}
                         onChange={this.handleChange} />
                     <button className="form__button" type="submit">Start!</button>
                 </form>
