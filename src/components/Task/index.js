@@ -3,10 +3,10 @@ import Typed from 'typed.js';
 
 import './styles.css';
 
-const DEFAUL_TITLE = 'Unknown'
-const DEFAUL_DESCRIPTION = 'Select mission please..'
-const CURSOR_TIMEOUT = 2000
-const CURSOR_SPEED = 20
+const DEFAUL_TITLE = 'Unknown';
+const DEFAUL_DESCRIPTION = 'Select mission please..';
+const CURSOR_TIMEOUT = 2000;
+const CURSOR_SPEED = 20;
 
 const Task = ({ task }) => {
     let refDescription;
@@ -20,9 +20,9 @@ const Task = ({ task }) => {
             onComplete: (self) => {
                 setTimeout(() => {
                     if (self && self.cursor) {
-                        self.cursor.style.display = 'none'
+                        self.cursor.style.display = 'none';
                     }
-                }, CURSOR_TIMEOUT)
+                }, CURSOR_TIMEOUT);
             }
         };
 
@@ -30,8 +30,8 @@ const Task = ({ task }) => {
 
         return () => {
             typed.destroy();
-        }
-    })
+        };
+    });
 
     return (
         <div className="task">
