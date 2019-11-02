@@ -3,6 +3,8 @@ import ApiService from '../../services/Api';
 
 import './styles.css';
 
+const TIMEOUT = 1000;
+
 class Form extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +13,7 @@ class Form extends Component {
             rejected: false,
             approved: false
         };
-        
+
         this.clearKey = this.clearKey.bind(this);
         this.rejectKey = this.rejectKey.bind(this);
         this.approveKey = this.approveKey.bind(this);
@@ -31,7 +33,7 @@ class Form extends Component {
             rejected: true,
             key: '',
         }, () => {
-            setTimeout(this.clearKey, 1000);
+            setTimeout(this.clearKey, TIMEOUT);
         });
     }
 
@@ -41,27 +43,27 @@ class Form extends Component {
             approved: true,
             key: '',
         }, () => {
-            setTimeout(this.clearKey, 1000);
+            setTimeout(this.clearKey, TIMEOUT);
         });
     }
 
     handleSubmit (e) {
         const { planet, onApproved } = this.props;
         const { key } = this.state;
-        
+
         ApiService
-        .approveKey(planet, key)
-        .then(isApproved => {
-            if (isApproved) {
-                if (onApproved) {
-                    onApproved(planet, key);
-                    this.approveKey();
+            .approveKey(planet, key)
+            .then(isApproved => {
+                if (isApproved) {
+                    if (onApproved) {
+                        onApproved(planet, key);
+                        this.approveKey();
+                    }
+                } else {
+                    this.rejectKey();
                 }
-            } else {
-                this.rejectKey();
-            }
-        });
-        
+            });
+
         e.preventDefault();
     }
 
@@ -72,13 +74,26 @@ class Form extends Component {
     }
 
     render() {
+        if (this.props.planet.isColonized) {
+            return (
+                <div className='form'>
+                    <div className="form__title">
+                        Launch panel
+                    </div> 
+                    <div className="form__description">
+                        Yeah, planet is colonized!
+                    </div>
+                </div>
+            )
+        }
+
         const { key, rejected, approved } = this.state;
         const formClassNames = `form ${rejected ? 'form--rejected' : ''} ${approved ? 'form--approved' : ''}`;
 
         return (
             <div className={formClassNames} >
                 <div className="form__title">
-                    Launch code:
+                    Launch panel
                 </div>
                 <div className="form__description">
                     We are ready to start colonization
