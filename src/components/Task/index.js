@@ -8,13 +8,13 @@ const DEFAUL_DESCRIPTION = 'Select mission please..';
 const CURSOR_TIMEOUT = 2000;
 const CURSOR_SPEED = 20;
 
-const Task = ({ task }) => {
+const Task = ({ planet }) => {
     let refDescription;
 
     useEffect(() => {
         const options = {
-            strings: task && task.description
-                ? [task.description]
+            strings: planet && planet.description
+                ? [planet.description]
                 : [DEFAUL_DESCRIPTION],
             typeSpeed: CURSOR_SPEED,
             onComplete: (self) => {
@@ -31,18 +31,18 @@ const Task = ({ task }) => {
         return () => {
             typed.destroy();
         };
-    });
+    }, [planet && planet.title]);
 
     return (
         <div className="task">
             <div className="task__title">
-                <strong>Mission:</strong> { (task && task.title) || DEFAUL_TITLE }
+                <strong>Mission:</strong> {(planet && planet.title) || DEFAUL_TITLE}
             </div>
             <div className="task__description">
                 <span ref={(ref) => { refDescription = ref; }} />
             </div>
-            {task && task.url ? (
-                <div className="task__url">{task.url}</div>
+            {planet && planet.url ? (
+                <div className="task__url">{planet.url}</div>
             ) : null}
         </div>
     )
