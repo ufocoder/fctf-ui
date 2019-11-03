@@ -1,37 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Progress from '../Progress';
 import Planets from '../Planets';
 import Header from '../Header';
+import Result from '../Result'
 import Task from '../Task';
 import Form from '../Form';
 
+import PlanetService from '../../services/PlanetService'
+import StorageService from '../../services/StorageService'
 
-import defaultPlanets from './planets'
 import './styles.css';
 
+const CANVAS_HEIGHT = 730;
+const CANVAS_WIDTH = 730;
 
-const App = ({ accepted = [] }) => {
-    const [acceptedTasks, setAcceptedTasks] = useState(accepted)
-    const [planets, setPlanets] = useState(defaultPlanets || [])
+const App = () => {
+    const [planets, setPlanets] = useState([])
     const [currentPlanet, setCurrentPlanet] = useState()
-    const handlePlanetClick = (planet) => {
-        setCurrentPlanet(planet);
+    const [rejected, setRejected] = useState()
+    const [loading, setLoading] = useState(true)
+    const [resultURL, setResultURL] = useState()
+
+    const progressPercent = PlanetService.getColonizedPercent()
+
+    const checkResult = () => 
+        PlanetService.check(Object.fromEntries(StorageService.getData()))
+            .then(({ result, url }) => {
+                if (result) {
+                    setResultURL(url)
+                }
+            })
+
+    useEffect(() => {
+        PlanetService.sync(StorageService.getData())
+            .then(() => setPlanets(PlanetService.getData()))
+            .then(() => checkResult())
+            .finally(() => setLoading(false))
+    }, [])
+
+    const handlePlanetClick = (planet) => setCurrentPlanet(planet);
+
+    const handleFormReset = (planetId) => 
+        PlanetService.destroy(planetId).then(() => {
+            StorageService.remove(planetId)
+            setResultURL(null)
+            setRejected(false)
+            setPlanets(PlanetService.getData())
+        })
+
+    const handleFormSubmit = (planetId, flag) => {
+        setRejected(false)
+        PlanetService
+            .colonize(planetId, flag) 
+            .then(isColonized => {
+                if (isColonized) {
+                    StorageService.save(planetId, flag)
+                    checkResult()
+                    setPlanets(PlanetService.getData())
+                } else {
+                    StorageService.remove(planetId)
+                }
+            })
+            .finally(() => setRejected(true))
+
     }
 
-    const colonizedPlanets = planets.filter(planet => planet.isColonized).length
-    const progressPercent = Math.round(colonizedPlanets / planets.length * 100)
-
-    const handlePlanetColonized = (colonizedPlanet, flag) => {
-        setPlanets(
-            planets.slice().map((planet) => {
-                if (planet === colonizedPlanet) {
-                    planet.flag = flag
-                    planet.isColonized = true                
-                }
-
-                return planet
-            })
-        )
+    if (loading) {
+        return 'loading..'
     }
 
     return (
@@ -39,19 +74,24 @@ const App = ({ accepted = [] }) => {
             <div className="layout__planets">
                 <Planets 
                     planets={planets}
-                    width={730}
-                    height={730}
+                    width={CANVAS_WIDTH}
+                    height={CANVAS_HEIGHT}
                     currentPlanet={currentPlanet} 
                     onClickHandler={handlePlanetClick} />
             </div>
-            <div className="layout__content">        
+            <div className="layout__content">
                 <Header />
+                {resultURL
+                    ? <Result url={resultURL} />
+                    : null}
                 <Progress percent={progressPercent} />
-                <Task task={currentPlanet} />
+                <Task planet={currentPlanet} />
                 {currentPlanet
                     ? <Form 
+                        rejected={rejected}
                         planet={currentPlanet}
-                        onApproved={handlePlanetColonized} /> 
+                        onReset={handleFormReset}
+                        onSubmit={handleFormSubmit} /> 
                     : null}
             </div>
         </div>
