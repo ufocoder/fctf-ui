@@ -1,7 +1,6 @@
 const planets = [
     {
-        title: 'Mercury',
-        description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+        id: 1,
         pattern: require('../../assets/1.svg'),
         physics: {
             startAngel: 0,
@@ -11,8 +10,7 @@ const planets = [
         }
     },
     {
-        title: 'Venus',
-        description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+        id: 2,
         pattern: require('../../assets/2.svg'),
         physics: {
             startAngel: 15,
@@ -22,8 +20,7 @@ const planets = [
         }
     },
     {
-        title: 'Earth',
-        description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+        id: 3,
         pattern: require('../../assets/3.svg'),
         physics: {
             startAngel: 30,
@@ -33,8 +30,7 @@ const planets = [
         }
     },
     {
-        title: 'Mars',
-        description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+        id: 4,
         pattern: require('../../assets/4.svg'),
         physics: {
             startAngel: 45,
@@ -44,8 +40,7 @@ const planets = [
         }
     },
     {
-        title: 'Jupiter',
-        description: 'lorep ipsum #2',
+        id: 5,
         pattern: require('../../assets/5.svg'),
         physics: {
             startAngel: 60,
@@ -55,8 +50,7 @@ const planets = [
         }
     },
     {
-        title: 'Saturn',
-        description: 'lorep ipsum #2',
+        id: 6,
         pattern: require('../../assets/6.svg'),
         physics: {
             startAngel: 50,
@@ -66,8 +60,7 @@ const planets = [
         }
     },
     {
-        title: 'Uranus',
-        description: 'lorep ipsum #2',
+        id: 7,
         pattern: require('../../assets/7.svg'),
         physics: {
             startAngel: 150,
@@ -77,8 +70,7 @@ const planets = [
         }
     },
     {
-        title: 'Neptune',
-        description: 'lorep ipsum #2',
+        id: 8,
         pattern: require('../../assets/8.svg'),
         physics: {
             startAngel: 10,
