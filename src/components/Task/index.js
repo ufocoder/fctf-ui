@@ -31,7 +31,7 @@ const Task = ({ planet }) => {
         return () => {
             typed.destroy();
         };
-    }, [planet && planet.title]);
+    }, [planet, refDescription]);
 
     return (
         <div className="task">
