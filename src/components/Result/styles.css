@@ -1,0 +1,29 @@
+.result {
+    border: 1px solid green;
+    background: #082c24;
+    margin-bottom: 20px;
+    height: 40px;
+    position: relative;
+}
+
+.result__link {
+    position: absolute;
+    left: 50%;
+    width: 100px;
+    margin-left: -50px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 0.9em;
+    color: #fff;
+    animation: wobble ease-in 0.5s 2 1s;
+}
+
+@keyframes wobble {
+     0% { transform: none }
+    15% { transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg) }
+    30% { transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg) }
+    45% { transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg) }
+    60% { transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg) }
+    75% { transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg) }
+   100% { transform: none }
+}
