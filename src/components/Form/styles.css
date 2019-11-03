@@ -33,7 +33,6 @@
     color: #fff;
 }
 
-
 .form--colonized {
     background: #082c24;
 }
@@ -41,7 +40,26 @@
 .form--rejected {
     animation: wiggle 0.5s 2;
 }
-  
+
+.form__btn {
+    background: #bc2003;
+    border: 1px solid #ff3812;
+    padding: 5px 10px;
+    color: #fff;
+    line-height: 1.2em;
+}
+
+.form__btn:hover {
+    cursor: pointer;
+}
+
+.form__btn-comment {
+    font-size: 0.7em;
+    padding-left: 5px;
+    display: inline-block;
+    line-height: 1.2em;
+}
+
 .wiggle:hover {
     animation: none;
 }

@@ -1,67 +1,55 @@
 import React, { Component } from 'react';
-import ApiService from '../../services/Api';
 
 import './styles.css';
 
-const TIMEOUT = 1000;
+const RESET_TIMEOUT = 1000;
 
 class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: '',
-            rejected: false
+            key: ''
         };
 
-        this.clearKey = this.clearKey.bind(this);
-        this.rejectKey = this.rejectKey.bind(this);
-        this.approveKey = this.approveKey.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    clearKey() {
-        this.setState({
-            rejected: false
-        });
+    componentDidUpdate(prevProps) {
+        if (prevProps.rejected !== this.props.rejected) {
+            this.setState({ rejected: true }, () => {
+                this.rejectTimer = setTimeout(() => {
+                    this.setState({ rejected: false })
+                }, RESET_TIMEOUT);
+            })
+        }
     }
 
-    rejectKey() {
-        this.setState({
-            rejected: true,
-            key: '',
-        }, () => {
-            setTimeout(this.clearKey, TIMEOUT);
-        });
-    }
-
-    approveKey() {
-        this.setState({
-            rejected: false,
-            key: '',
-        }, () => {
-            setTimeout(this.clearKey, TIMEOUT);
-        });
+    componentWillUnmount() {
+        if (this.rejectTimer) {
+            clearTimeout(this.rejectTimer);
+        }
     }
 
     handleSubmit (e) {
-        const { planet, onApproved } = this.props;
-        const { key } = this.state;
-
-        ApiService
-            .approveKey(planet, key)
-            .then(isApproved => {
-                if (isApproved) {
-                    if (onApproved) {
-                        onApproved(planet, key);
-                        this.approveKey();
-                    }
-                } else {
-                    this.rejectKey();
-                }
-            });
+        const { planet, onSubmit } = this.props;
 
         e.preventDefault();
+
+        if (typeof onSubmit === 'function') {
+            onSubmit(planet.id, this.state.key)
+        }
+    }
+
+    handleReset (e) {
+        const { planet, onReset } = this.props;
+
+        e.preventDefault();
+
+        if (typeof onReset === 'function') {
+            onReset(planet.id)
+        }
     }
 
     handleChange(e) {
@@ -70,20 +58,7 @@ class Form extends Component {
         });
     }
 
-    render() {
-        if (this.props.planet.isColonized) {
-            return (
-                <div className='form form--colonized'>
-                    <div className="form__title">
-                        Launch panel
-                    </div> 
-                    <div className="form__description">
-                        Yeah, planet is colonized!
-                    </div>
-                </div>
-            )
-        }
-
+    renderForm() {
         const { key, rejected } = this.state;
         const formClassNames = `form ${rejected ? 'form--rejected' : ''}`;
 
@@ -107,6 +82,33 @@ class Form extends Component {
                 </form>
             </div>
         )
+    }
+
+    renderColonized() {
+        return (
+            <div className='form form--colonized'>
+                <div className="form__title">
+                    Launch panel
+                </div> 
+                <div className="form__description">
+                    Yeah, planet is colonized!
+                </div>
+                <button className="form__btn" onClick={this.handleReset}>
+                    Destroy!
+                </button>
+                <div className="form__btn-comment">
+                    and try again!
+                </div>
+            </div>
+        )
+    }
+
+    render() {
+        if (this.props.planet.isColonized) {
+            return this.renderColonized()
+        }
+
+        return this.renderForm()
     }
 }
 
