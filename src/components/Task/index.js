@@ -42,7 +42,9 @@ const Task = ({ planet }) => {
                 <span ref={(ref) => { refDescription = ref; }} />
             </div>
             {planet && planet.url ? (
-                <div className="task__url">{planet.url}</div>
+                <div className="task__url">
+                    <a href={planet.url}>{planet.url}</a>
+                </div>
             ) : null}
         </div>
     )
