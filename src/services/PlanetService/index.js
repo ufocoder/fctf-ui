@@ -63,7 +63,7 @@ const PlanetService = {
                 }
 
                 planets = planets.slice().map((planet) => {
-                    if (planet.id === planetId) {
+                    if (parseInt(planet.id) == parseInt(planetId)) {
                         planet.isColonized = true
                         planet.flag = flag
                     }
