@@ -40,10 +40,14 @@ const Task = ({ planet }) => {
             </div>
             <div className="task__description">
                 <span ref={(ref) => { refDescription = ref; }} />
+
+                {planet && planet.image ? (
+                    <img src={planet.image} className="task__image" />
+                ) : null}
             </div>
             {planet && planet.url ? (
-                <div className="task__url">
-                    <a href={planet.url}>{planet.url}</a>
+                <div>
+                    Mission URL: <a href={planet.url} className="task__url" target="_blank">{planet.url}</a>
                 </div>
             ) : null}
         </div>

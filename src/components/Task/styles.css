@@ -5,6 +5,16 @@
     background: #050713;
 }
 
+.task__url {
+    color: #00da82;
+}
+
+.task__image {
+    margin: 10px auto;
+    display: block;
+    max-width: 200px;
+}
+
 .task__title {
     font-size: 1.3em;
 }
