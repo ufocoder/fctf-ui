@@ -36,7 +36,6 @@ const Planet = (props) => {
                 setCurrentAngle(STATIC_ANGEL);
             }
         } else {
-            console.log('dynamic')
             if (!isHovered) {
                 requestAnimationFrame(() => {
                     setCurrentAngle((currentAngel + physics.speed) % 360)

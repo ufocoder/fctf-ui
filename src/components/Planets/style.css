@@ -56,8 +56,9 @@
 
 @media (max-width: 992px) {
     .planets {
-        right: -365px;
+        right: 0;
         height: 365px;
+        width: 100%;
         position: absolute;
     }
 }
