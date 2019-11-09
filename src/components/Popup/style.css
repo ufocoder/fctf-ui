@@ -1,5 +1,6 @@
 .popup__overlay {
   position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
@@ -45,6 +46,12 @@
   margin-top: 0;
   font-size: 1em;
   line-height: 1.1;
+}
+
+.popup__text pre {
+  border: 1px solid #fff;
+  background: #10333c;
+  padding: 9px;
 }
 
 .popup__close {
