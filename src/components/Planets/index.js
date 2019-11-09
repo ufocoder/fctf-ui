@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './style.css'
 
-const sunRadius = 38;
+const CANVAS_HEIGHT = 730;
+const CANVAS_WIDTH = 730;
+const WINDOW_WIDTH_LIMIT = 992;
+
+
+const STATIC_ANGEL = 180
+const SUN_RADUIS = 38;
 const Orbit = ({ cx, cy, orbit }) => (
     <circle className="orbit" r={orbit} cx={cx} cy={cy} />
 )
+
+let prevDocumentWidth = null;
 
 const Planet = (props) => {
     const { 
@@ -22,12 +30,26 @@ const Planet = (props) => {
 
     const [currentAngel, setCurrentAngle] = useState(physics.startAngel);
 
-    useEffect(() => {  
-        if (!isHovered) {
-            requestAnimationFrame(() => {
-                setCurrentAngle((currentAngel + physics.speed) % 360)
-            }, 10)
+    const autoSetAngle = () => {
+        if (window.innerWidth < WINDOW_WIDTH_LIMIT) {
+            if (currentAngel != STATIC_ANGEL) {
+                setCurrentAngle(STATIC_ANGEL);
+            }
+        } else {
+            console.log('dynamic')
+            if (!isHovered) {
+                requestAnimationFrame(() => {
+                    setCurrentAngle((currentAngel + physics.speed) % 360)
+                }, 10)
+            }
         }
+    }
+
+    useEffect(() => {
+        const onResize = () => autoSetAngle()
+        autoSetAngle()
+        window.addEventListener('resize', onResize)
+        return () => window.removeEventListener('resize', onResize)
     })
 
     const tx = Math.cos(currentAngel) * physics.orbitRadius
@@ -59,14 +81,13 @@ const Planet = (props) => {
     )
 }
 
-const Planets = ({ planets, width, currentPlanet, height, onClickHandler }) => {
+const Planets = ({ planets, currentPlanet, onClickHandler }) => {
   const [hoveredPlanet, setHovered] = useState(true);
-  const cx = width / 2;
-  const cy = height / 2;
-  
+  const cx = CANVAS_WIDTH / 2;
+  const cy = CANVAS_HEIGHT / 2;  
   return (
     <div className="planets" >
-        <svg  width={width} height={height}>
+        <svg width={CANVAS_WIDTH} height={CANVAS_HEIGHT}>
             {planets.map(({ physics }, i) => 
                 <Orbit key={i} orbit={physics.orbitRadius} cx={cx} cy={cy} />
             )}
@@ -85,10 +106,10 @@ const Planets = ({ planets, width, currentPlanet, height, onClickHandler }) => {
                     onMouseLeave={() => setHovered(null)} />
             )}
             <image
-                x={cx - sunRadius} 
-                y={cy - sunRadius} 
-                width={sunRadius * 2} 
-                height={sunRadius * 2} 
+                x={cx - SUN_RADUIS} 
+                y={cy - SUN_RADUIS} 
+                width={SUN_RADUIS * 2} 
+                height={SUN_RADUIS * 2} 
                 xlinkHref={require('../../assets/sun.svg')} />
         </svg>
     </div>

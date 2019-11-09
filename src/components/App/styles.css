@@ -25,6 +25,7 @@ code {
 }
 
 .layout__planets {
+  position: relative;
   flex: 0 0 760px;
 }
 

@@ -13,9 +13,6 @@ import StorageService from '../../services/StorageService'
 
 import './styles.css';
 
-const CANVAS_HEIGHT = 730;
-const CANVAS_WIDTH = 730;
-
 const App = () => {
     const [planets, setPlanets] = useState([])
     const [showModal, setShowModal] = useState(true)
@@ -81,8 +78,6 @@ const App = () => {
             <div className="layout__planets">
                 <Planets 
                     planets={planets}
-                    width={CANVAS_WIDTH}
-                    height={CANVAS_HEIGHT}
                     currentPlanet={currentPlanet} 
                     onClickHandler={handlePlanetClick} />
             </div>
