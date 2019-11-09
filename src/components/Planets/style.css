@@ -5,6 +5,11 @@
     z-index: 1;
 }
 
+.planets svg {
+    margin: 0 auto;
+    display: inline-block;
+}
+
 .planet:hover {
     stroke-width: 2;
     stroke: green;
