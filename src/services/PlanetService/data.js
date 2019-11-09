@@ -62,6 +62,7 @@ const planets = [
     {
         id: 7,
         pattern: require('../../assets/7.svg'),
+        signal: atob("e2ZjdGZfY2F0c193ZWFyX2hhdHN9"),
         physics: {
             startAngel: 150,
             speed: 0.0015,

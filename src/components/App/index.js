@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Progress from '../Progress';
 import Planets from '../Planets';
 import Header from '../Header';
-import Result from '../Result'
+import Result from '../Result';
 import Task from '../Task';
 import Form from '../Form';
+import Popup from '../Popup';
+
 
 import PlanetService from '../../services/PlanetService'
 import StorageService from '../../services/StorageService'
@@ -16,6 +18,7 @@ const CANVAS_WIDTH = 730;
 
 const App = () => {
     const [planets, setPlanets] = useState([])
+    const [showModal, setShowModal] = useState(true)
     const [currentPlanet, setCurrentPlanet] = useState()
     const [rejected, setRejected] = useState()
     const [loading, setLoading] = useState(true)
@@ -37,6 +40,8 @@ const App = () => {
             .then(() => checkResult())
             .finally(() => setLoading(false))
     }, [])
+
+    const handleCloseModalClick = () => setShowModal(false)
 
     const handlePlanetClick = (planet) => setCurrentPlanet(planet);
 
@@ -62,7 +67,6 @@ const App = () => {
                 }
             })
             .finally(() => setRejected(true))
-
     }
 
     if (loading) {
@@ -71,6 +75,9 @@ const App = () => {
 
     return (
         <div className="layout">
+            {showModal 
+                ? <Popup onCloseClick={handleCloseModalClick} /> 
+                : null}
             <div className="layout__planets">
                 <Planets 
                     planets={planets}
