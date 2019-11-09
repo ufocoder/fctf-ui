@@ -76,7 +76,7 @@ const App = () => {
     return (
         <div className="layout">
             {showModal 
-                ? <Popup onClick={handleCloseModalClick} /> 
+                ? <Popup onCloseClick={handleCloseModalClick} /> 
                 : null}
             <div className="layout__planets">
                 <Planets 
