@@ -49,7 +49,7 @@
   line-height: 1.1;
 }
 
-.popup__text pre {
+.popup__code {
   border: 1px solid #fff;
   background: #10333c;
   padding: 9px;
