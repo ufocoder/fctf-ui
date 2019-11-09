@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.85);
+  overflow-y: scroll;
 }
 
 .popup__content {
@@ -68,5 +69,15 @@
 
 .popup__close:hover {
   background: #1c7b4f;
+}
+
+@media (max-width: 576px) { 
+  .popup__content {
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+    min-height: inherit;
+  }
 }
 
