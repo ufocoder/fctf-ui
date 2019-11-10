@@ -5,14 +5,14 @@ const CANVAS_HEIGHT = 730;
 const CANVAS_WIDTH = 730;
 const WINDOW_WIDTH_LIMIT = 992;
 
-
 const STATIC_ANGEL = 180
 const SUN_RADUIS = 38;
+
+let prevDocumentWidth = null;
+
 const Orbit = ({ cx, cy, orbit }) => (
     <circle className="orbit" r={orbit} cx={cx} cy={cy} />
 )
-
-let prevDocumentWidth = null;
 
 const Planet = (props) => {
     const { 
@@ -39,7 +39,7 @@ const Planet = (props) => {
             if (!isHovered) {
                 requestAnimationFrame(() => {
                     setCurrentAngle((currentAngel + physics.speed) % 360)
-                }, 10)
+                })
             }
         }
     }
